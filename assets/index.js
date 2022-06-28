@@ -1,16 +1,35 @@
-var diffEls = document.querySelectorAll(".diff__btn");
+var diffEls = document.querySelectorAll(".diff__btn").innerHTML;
 var diffEl = document.querySelector(".diff__btn.active").innerHTML;
 var n = diffEl;
 var colorsEl = document.querySelector(".colors");
 var colorsBlocks;
 var rgbEl = document.querySelector(".rgb");
 var statusEl = document.querySelector(".status");
+var header = document.querySelector(".colorHeader");
 var colors = [];
+var nineBtn = document.querySelector("diff__btn");
+var sixBtn = document.querySelector(".six");
 createBlocks(n);
 resetGame();
 
 function checkColors(e) {
   // your code here
+  const color = e.target.style.backgroundColor;
+  if (color === rgbEl.innerHTML) {
+    //loop through all color blocks
+    for (var i = 0; i < colorsBlocks.length; i++) {
+      //change each color to match given color
+      console.log(i)
+      colorsBlocks[i].style.background = color;
+    }
+    statusEl.innerHTML = "YOU WON! A new game will start in a second";
+    setTimeout(() => {
+      resetGame();
+    }, 2000);
+  } else {
+    e.target.style.background = "";
+    statusEl.innerHTML = "Try Again";
+  }
 }
 
 function resetGame() {
@@ -21,6 +40,7 @@ function resetGame() {
   pickedColor = random(n);
   rgbEl.innerHTML = colors[pickedColor];
   setColors();
+  // header.style.background = "";
   statusEl.innerHTML =
     "Try to guess the right color based on the RGB value by clicking on the blocks.";
 }
@@ -45,9 +65,16 @@ function random(r) {
   return Math.floor(Math.random() * r);
 }
 
-function setNumberOfTiles(e) {
-  // your code here
+function setNumberOfTiles(n) {
+
+  nineBtn.addEventListener("click", () => {
+    sixBtn.classList.remove("active");
+    nineBtn.classList.add("active");
+    createBlocks(n);
+    console.log(n)
+  });
 }
+setNumberOfTiles(9)
 
 function createBlocks(num) {
   colorsEl.innerHTML = "";
@@ -63,3 +90,4 @@ function createBlocks(num) {
     colorsBlocks[i].addEventListener("click", checkColors);
   }
 }
+
