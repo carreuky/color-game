@@ -1,12 +1,12 @@
-var diffEls = document.querySelectorAll(".diff__btn").innerHTML;
+var diffEls = document.querySelectorAll(".diff__btn");
 var diffEl = document.querySelector(".diff__btn.active").innerHTML;
-var n = diffEl;
 var colorsEl = document.querySelector(".colors");
 var colorsBlocks;
 var rgbEl = document.querySelector(".rgb");
 var statusEl = document.querySelector(".status");
 var header = document.querySelector(".colorHeader");
 var colors = [];
+var n = diffEl
 var nineBtn = document.querySelector("diff__btn");
 var sixBtn = document.querySelector(".six");
 createBlocks(n);
@@ -65,16 +65,19 @@ function random(r) {
   return Math.floor(Math.random() * r);
 }
 
-function setNumberOfTiles(n) {
-
-  nineBtn.addEventListener("click", () => {
-    sixBtn.classList.remove("active");
-    nineBtn.classList.add("active");
-    createBlocks(n);
-    console.log(n)
-  });
+function setNumberOfTiles(e) {
+  // your code here
+  for(let i = 0 ; i <= 1 ; i++){ 
+    diffEls[i].addEventListener('click', ()=>{
+    diffEls[0].classList.remove('active');
+    diffEls[1].classList.remove('active');
+    diffEls[i].classList.add('active');
+    diffEls[i].innerHTML === '6' ? n = 6 : n = 9;
+    resetGame()
+  })
 }
-setNumberOfTiles(9)
+}
+setNumberOfTiles()
 
 function createBlocks(num) {
   colorsEl.innerHTML = "";
